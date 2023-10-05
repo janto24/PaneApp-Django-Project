@@ -1,0 +1,14 @@
+{% extends 'PaneApp/padre.html' %}
+
+{% load static %}
+
+{% block contenidoDinamico %}
+
+<h2>¿Estás seguro de que deseas eliminar a {{ proveedor.nombre }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'proveedores' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+  
+{% endblock %}
