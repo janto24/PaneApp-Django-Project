@@ -1,18 +1,51 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from PaneApp.forms import ProveedorForm, IngredienteForm, PizzaForm
-from .models import Proveedor, Ingrediente
-
+from .models import Proveedor, Ingrediente, Pizza
+from django.db.models import Q
 
 
 def inicio(request):
-    return render(request, "PaneApp/inicio.html")
+    proveedores_result = []
+    ingredientes_result = []
+    pizzas_result = []
+
+    if request.method == 'POST':
+        proveedor_query = request.POST.get('proveedor_query', '')
+        ingrediente_query = request.POST.get('ingrediente_query', '')
+        pizza_query = request.POST.get('pizza_query', '')
+
+        if proveedor_query:
+            proveedores_result = Proveedor.objects.filter(nombre__icontains=proveedor_query)
+        
+        if ingrediente_query:
+            ingredientes_result = Ingrediente.objects.filter(nombre__icontains=ingrediente_query)
+        
+        if pizza_query:
+            pizzas_result = Pizza.objects.filter(nombre__icontains=pizza_query)
+
+    return render(request, "PaneApp/busqueda.html", {
+        'proveedores_result': proveedores_result,
+        'ingredientes_result': ingredientes_result,
+        'pizzas_result': pizzas_result
+    })
 
 def proveedores(request):
     return render(request, "PaneApp/proveedores.html")
 
 def pizzas(request):
-    return render(request, "PaneApp/pizzas.html")
+    if request.method == 'POST':
+        pizza_form = PizzaForm(request.POST)
+        if pizza_form.is_valid():
+            pizza = pizza_form.save(commit=False)
+            pizza.save()
+            return redirect('pizzas')
+    else:
+        pizza_form = PizzaForm()
+    
+    pizzas = Pizza.objects.all()
+    
+    return render(request, 'PaneApp/pizzas.html', {'pizza_form': pizza_form, 'pizzas': pizzas})
 
 def crear_proveedor(request):
     if request.method == 'POST':
@@ -62,4 +95,12 @@ def borrar_ingrediente(request, ingrediente_id):
     
     return render(request, 'PaneApp/borrar_ingrediente_confirmar.html', {'ingrediente': ingrediente})
 
+def borrar_pizza(request, pizza_id):
+    pizza = get_object_or_404(Pizza, pk=pizza_id)
+    
+    if request.method == 'POST':
+        pizza.delete()
+        return redirect('pizzas')
+    
+    return render(request, 'PaneApp/borrar_pizza_confirmar.html', {'pizza': pizza})
 

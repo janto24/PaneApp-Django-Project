@@ -1,0 +1,69 @@
+{% extends 'PaneApp/padre.html' %}
+{% load static %}
+
+{% block contenidoDinamico %}
+<section>
+    <div class="container px-5">
+        <h1>Búsqueda</h1>
+        <form method="post" action="{% url 'buscar' %}">
+            {% csrf_token %}
+            <h2>Buscar en Proveedores</h2>
+            <input type="text" name="proveedor_query" placeholder="Ingrese nombre del proveedor">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <br>
+        <form method="post" action="{% url 'buscar' %}">
+            {% csrf_token %}
+            <h2>Buscar en Ingredientes</h2>
+            <input type="text" name="ingrediente_query" placeholder="Ingrese nombre del ingrediente">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <br>
+        <form method="post" action="{% url 'buscar' %}">
+            {% csrf_token %}
+            <h2>Buscar en Pizzas</h2>
+            <input type="text" name="pizza_query" placeholder="Ingrese nombre de la pizza">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</section>
+
+{% if proveedores_result %}
+<section>
+    <div class="container px-5">
+        <h2>Resultados de la búsqueda en Proveedores:</h2>
+        <ul>
+            {% for proveedor in proveedores_result %}
+            <li>{{ proveedor.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if ingredientes_result %}
+<section>
+    <div class="container px-5">
+        <h2>Resultados de la búsqueda en Ingredientes:</h2>
+        <ul>
+            {% for ingrediente in ingredientes_result %}
+            <li>{{ ingrediente.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if pizzas_result %}
+<section>
+    <div class="container px-5">
+        <h2>Resultados de la búsqueda en Pizzas:</h2>
+        <ul>
+            {% for pizza in pizzas_result %}
+            <li>{{ pizza.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
