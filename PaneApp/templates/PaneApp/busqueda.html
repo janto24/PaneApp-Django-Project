@@ -4,24 +4,25 @@
 {% block contenidoDinamico %}
 <section>
     <div class="container px-5">
-        <h1>Búsqueda</h1>
+        <h2>Búsqueda</h2>
+        <br>
         <form method="post" action="{% url 'buscar' %}">
             {% csrf_token %}
-            <h2>Buscar en Proveedores</h2>
+            <p>Buscar en Proveedores</p>
             <input type="text" name="proveedor_query" placeholder="Ingrese nombre del proveedor">
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
         <br>
         <form method="post" action="{% url 'buscar' %}">
             {% csrf_token %}
-            <h2>Buscar en Ingredientes</h2>
+            <p>Buscar en Ingredientes</p>
             <input type="text" name="ingrediente_query" placeholder="Ingrese nombre del ingrediente">
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
         <br>
         <form method="post" action="{% url 'buscar' %}">
             {% csrf_token %}
-            <h2>Buscar en Pizzas</h2>
+            <p>Buscar en Pizzas</p>
             <input type="text" name="pizza_query" placeholder="Ingrese nombre de la pizza">
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
