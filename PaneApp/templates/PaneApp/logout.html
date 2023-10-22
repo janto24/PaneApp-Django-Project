@@ -1,0 +1,24 @@
+{% extends 'PaneApp/padre.html' %}
+
+{% load static %}
+
+{% block contenidoDinamico %}
+
+<!-- Content section 1 -->
+<section id="scroll">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <br>
+                <br>
+                <h3>Te has deslogueado...</h3>
+                <div class="btn btn-primary"><a class="nav-link" href="{% url 'inicio' %}"">Volver al inicio</a></div>
+                <div class="btn btn-secondary"><a class="nav-link" href="{% url 'inicio' %}"">Login</a></div>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

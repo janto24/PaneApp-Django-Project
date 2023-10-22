@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from PaneApp.forms import ProveedorForm, IngredienteForm, PizzaForm #FALTA IMPORTAR 'UserRegisterForm'
+from PaneApp.forms import ProveedorForm, IngredienteForm, PizzaForm,UserRegisterForm
 from .models import Proveedor, Ingrediente, Pizza
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-
-def inicio(request):
+@login_required
+def inicio(request):  
     proveedores_result = []
     ingredientes_result = []
     pizzas_result = []
@@ -33,9 +33,11 @@ def inicio(request):
         'pizzas_result': pizzas_result
     })
 
+@login_required
 def proveedores(request):
     return render(request, "PaneApp/proveedores.html")
 
+@login_required
 def pizzas(request):
     if request.method == 'POST':
         pizza_form = PizzaForm(request.POST)
@@ -50,6 +52,7 @@ def pizzas(request):
     
     return render(request, 'PaneApp/pizzas.html', {'pizza_form': pizza_form, 'pizzas': pizzas})
 
+@login_required
 def crear_proveedor(request):
     if request.method == 'POST':
         miForm = ProveedorForm(request.POST)
@@ -65,6 +68,7 @@ def crear_proveedor(request):
     
     return render(request, 'PaneApp/proveedores.html', {'miForm': miForm, 'proveedores': proveedores})
 
+@login_required
 def borrar_proveedor(request, proveedor_id):
     proveedor = get_object_or_404(Proveedor, pk=proveedor_id)
     
@@ -74,6 +78,7 @@ def borrar_proveedor(request, proveedor_id):
     
     return render(request, 'PaneApp/borrar_proveedor_confirmar.html', {'proveedor': proveedor})
 
+@login_required
 def ingredientes(request):
     if request.method == 'POST':
         ingrediente_form = IngredienteForm(request.POST)
@@ -89,6 +94,7 @@ def ingredientes(request):
     
     return render(request, 'PaneApp/ingredientes.html', {'ingrediente_form': ingrediente_form, 'ingredientes': ingredientes})
 
+@login_required
 def borrar_ingrediente(request, ingrediente_id):
     ingrediente = get_object_or_404(Ingrediente, pk=ingrediente_id)
     
@@ -98,6 +104,7 @@ def borrar_ingrediente(request, ingrediente_id):
     
     return render(request, 'PaneApp/borrar_ingrediente_confirmar.html', {'ingrediente': ingrediente})
 
+@login_required
 def borrar_pizza(request, pizza_id):
     pizza = get_object_or_404(Pizza, pk=pizza_id)
     

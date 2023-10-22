@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'PaneApp/padre.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% load static %}
 
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Inciar sesion</button>
-    </form>
-</body>
+{% block contenidoDinamico %}
 
-</html>
+<!-- Content section 1 -->
+<section id="scroll">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <br>
+                <h3>Debes iniciar sesion para acceder a la web</h3>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Inciar sesion</button>
+                </form>
+                <a href="{% url 'Register' %}" class="btn btn-secondary">Registro</a>
+
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
