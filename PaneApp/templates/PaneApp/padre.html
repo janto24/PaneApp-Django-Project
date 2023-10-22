@@ -10,19 +10,18 @@
     <meta name="author" content="" />
     <title>PaneApp</title>
     <link rel="icon" type="image/x-icon" href={% static 'PaneApp/assets/favicon.ico' %} />
-    <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
         rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href={% static 'PaneApp/css/styles.css' %} rel="stylesheet" />
+    <link href={% static 'PaneApp/css/secondary.css' %} rel="stylesheet" />
 </head>
 
 <body id="page-top">
-    <!-- Navigation-->
+
+    <!-- Menu nav-->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container px-5">
             <a class="navbar-brand" href="#page-top">PaneApp</a>
@@ -35,26 +34,27 @@
                         <li class=" nav-item"><a class="nav-link" href="{% url 'proveedores' %}">proveedores</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'pizzas' %}">pizzas</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'ingredientes' %}">Ingredientes</a></li>
+
+                    <!-- LOGOUT condicional -->
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
                     {% endif %}
+
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Header-->
-    <header class="masthead text-center text-white">
-        <div class="masthead-content">
-            <div class="container px-5">
 
+    <!-- Header-->
+    <header class="inicioHeader">
+        <div class="masthead" id='ini'>
+            <div class="container">
             </div>
         </div>
-        <div class="bg-circle-1 bg-circle"></div>
-        <div class="bg-circle-2 bg-circle"></div>
-        <div class="bg-circle-3 bg-circle"></div>
-        <div class="bg-circle-4 bg-circle"></div>
     </header>
-
+    <br>
     <!-- Content section 1-->
 
     {% block contenidoDinamico %}
@@ -62,12 +62,13 @@
     {% endblock %}
 
     <!-- Footer-->
-
+    <br>
     <footer class="py-5 bg-black">
         <div class="container px-5">
-            <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+            <p class="m-0 text-center text-white medium">Copyright &copy; PaneApp 2023</p>
         </div>
     </footer>
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

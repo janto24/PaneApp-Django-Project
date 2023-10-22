@@ -4,54 +4,37 @@
 
 {% block contenidoDinamico %}
 
-        <!-- Content section 1-->
-        <section id="scroll">
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src={% static 'PaneApp/assets/img/01.jpg' %} alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6 order-lg-1">
-                        <div class="p-5">
-                            <h2 class="display-4">For those about to rock...</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                        </div>
-                    </div>
+<!-- Content section 1-->
+<section id="scroll">
+    <div class="container px-7">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-7"><img class="img-fluid" src={% static 'PaneApp/assets/img/pizza.png' %} alt="..." />
                 </div>
             </div>
-        </section>
-        <!-- Content section 2-->
-        <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src={% static 'PaneApp/assets/img/02.jpg' %} alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
-                            <h2 class="display-4">We salute you!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                        </div>
-                    </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">PaneApp!</h2>
+                    <p>¡Bienvenido a nuestra aplicación web para gestionar proveedores, ingredientes y el stock de una
+                        pizzería! Nuestra plataforma está diseñada para simplificar la administración de tu negocio,
+                        permitiéndote centrarte en lo que más importa: crear deliciosas pizzas. Con nuestra aplicación,
+                        podrás llevar un registro de tus proveedores, administrar ingredientes frescos y mantener un
+                        control preciso de tu inventario. Ya no tendrás que preocuparte por quedarte sin los
+                        ingredientes necesarios para tus pizzas favoritas. Simplifica tu operación y optimiza tu
+                        pizzería con nuestra aplicación web. ¡Comencemos a crear las pizzas más sabrosas juntos!.</p>
                 </div>
-            </div>
-        </section>
-        <!-- Content section 3-->
-        <section>
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src={% static 'PaneApp/assets/img/03.jpg' %} alt="..." /></div>
-                    </div>
-                    <div class="col-lg-6 order-lg-1">
-                        <div class="p-5">
-                            <h2 class="display-4">Let there be rock!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                        </div>
-                    </div>
+
+                <!-- Contenedor de registro condicional -->
+                {% if not user.is_authenticated %}
+                <div class="p-5">
+                    <h3 class="display-4">Para usar nuestra Aplicación sólo debes registrarte <a href="{% url 'Register' %}">aquí</a></h3>
                 </div>
+                {% endif %}
+
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
 
 {% endblock %}

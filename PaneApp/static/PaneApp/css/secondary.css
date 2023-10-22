@@ -1,0 +1,7 @@
+.inicioHeader {
+    background-image: url("../../../static/PaneApp/assets/img/pizza_background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+}

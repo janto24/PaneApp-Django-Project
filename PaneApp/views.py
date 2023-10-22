@@ -7,31 +7,35 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
+def inicio(request):
+    # Lógica de la vista de inicio
+    return render(request, "PaneApp/inicio.html")
+
 @login_required
-def inicio(request):  
-    proveedores_result = []
-    ingredientes_result = []
-    pizzas_result = []
+def busqueda(request):  
+     proveedores_result = []
+     ingredientes_result = []
+     pizzas_result = []
 
-    if request.method == 'POST':
-        proveedor_query = request.POST.get('proveedor_query', '')
-        ingrediente_query = request.POST.get('ingrediente_query', '')
-        pizza_query = request.POST.get('pizza_query', '')
+     if request.method == 'POST':
+         proveedor_query = request.POST.get('proveedor_query', '')
+         ingrediente_query = request.POST.get('ingrediente_query', '')
+         pizza_query = request.POST.get('pizza_query', '')
 
-        if proveedor_query:
-            proveedores_result = Proveedor.objects.filter(nombre__icontains=proveedor_query)
+         if proveedor_query:
+             proveedores_result = Proveedor.objects.filter(nombre__icontains=proveedor_query)
         
-        if ingrediente_query:
-            ingredientes_result = Ingrediente.objects.filter(nombre__icontains=ingrediente_query)
+         if ingrediente_query:
+             ingredientes_result = Ingrediente.objects.filter(nombre__icontains=ingrediente_query)
         
-        if pizza_query:
-            pizzas_result = Pizza.objects.filter(nombre__icontains=pizza_query)
+         if pizza_query:
+             pizzas_result = Pizza.objects.filter(nombre__icontains=pizza_query)
 
-    return render(request, "PaneApp/busqueda.html", {
-        'proveedores_result': proveedores_result,
-        'ingredientes_result': ingredientes_result,
-        'pizzas_result': pizzas_result
-    })
+     return render(request, "PaneApp/busqueda.html", {
+         'proveedores_result': proveedores_result,
+         'ingredientes_result': ingredientes_result,
+         'pizzas_result': pizzas_result
+     })
 
 @login_required
 def proveedores(request):
@@ -114,9 +118,8 @@ def borrar_pizza(request, pizza_id):
     
     return render(request, 'PaneApp/borrar_pizza_confirmar.html', {'pizza': pizza})
 
+
 def login_request(request):
-
-
       if request.method == "POST":
             form = AuthenticationForm(request, data = request.POST)
 
@@ -125,8 +128,7 @@ def login_request(request):
                   contra = form.cleaned_data.get('password')
 
                   user = authenticate(username=usuario, password=contra)
-
-            
+   
                   if user is not None:
                         login(request, user)
                        
@@ -142,6 +144,7 @@ def login_request(request):
       form = AuthenticationForm()
 
       return render(request,"PaneApp/login.html", {'form':form} )
+
 
 def register(request):
 
