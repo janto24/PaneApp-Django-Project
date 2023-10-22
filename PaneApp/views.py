@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from PaneApp.forms import ProveedorForm, IngredienteForm, PizzaForm
+from PaneApp.forms import ProveedorForm, IngredienteForm, PizzaForm #FALTA IMPORTAR 'UserRegisterForm'
 from .models import Proveedor, Ingrediente, Pizza
 from django.db.models import Q
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
@@ -104,3 +107,50 @@ def borrar_pizza(request, pizza_id):
     
     return render(request, 'PaneApp/borrar_pizza_confirmar.html', {'pizza': pizza})
 
+def login_request(request):
+
+
+      if request.method == "POST":
+            form = AuthenticationForm(request, data = request.POST)
+
+            if form.is_valid():
+                  usuario = form.cleaned_data.get('username')
+                  contra = form.cleaned_data.get('password')
+
+                  user = authenticate(username=usuario, password=contra)
+
+            
+                  if user is not None:
+                        login(request, user)
+                       
+                        return render(request,"PaneApp/inicio.html",  {"mensaje":f"Bienvenido {usuario}"} )
+                  else:
+                        
+                        return render(request,"PaneApp/inicio.html", {"mensaje":"Error, datos incorrectos"} )
+
+            else:
+                        
+                        return render(request,"PaneApp/inicio.html" ,  {"mensaje":"Error, formulario erroneo"})
+
+      form = AuthenticationForm()
+
+      return render(request,"PaneApp/login.html", {'form':form} )
+
+def register(request):
+
+      if request.method == 'POST':
+
+            #form = UserCreationForm(request.POST)
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+
+                  username = form.cleaned_data['username']
+                  form.save()
+                  return render(request,"PaneApp/inicio.html" ,  {"mensaje":"Usuario Creado :)"})
+
+
+      else:
+            #form = UserCreationForm()       
+            form = UserRegisterForm()     
+
+      return render(request,"PaneApp/registro.html" ,  {"form":form})

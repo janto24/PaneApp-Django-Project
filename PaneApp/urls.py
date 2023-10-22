@@ -11,4 +11,5 @@ urlpatterns = [
     path('borrar_proveedor/<int:proveedor_id>/', views.borrar_proveedor, name='borrar_proveedor'),
     path('borrar_ingrediente/<int:ingrediente_id>/', views.borrar_ingrediente, name='borrar_ingrediente'),
     path('borrar_pizza/<int:pizza_id>/', views.borrar_pizza, name='borrar_pizza'),
+    path('login/', views.login_request, name="Login")
 ]
